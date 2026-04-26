@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Life</title>
+    <link rel="stylesheet" href="ASSETS/CSS/JS/style.css">
+</head>
+    
+<body>
+   <h2>Medida de Pressão e Batimentos</h2>
+
+  <input type="text" id="pressao" placeholder="Pressão 120/80"><br>
+  <input type="number" id="batimentos" placeholder="Batimentos (bpm)"><br>
+
+  <button onclick="registrar()">Salvar</button>
+
+  <h3>Filtrar:</h3>
+  <input type="text" id="filtro" placeholder="Digite para filtrar" onkeyup="filtrar()">
+
+  <h3>Registros:</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Data e Hora</th>
+        <th>Pressão</th>
+        <th>BPM</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="tabela"></tbody>
+  </table>
+  <script src="./ASSETS/CSS/JS/script.js"></script>
+    
+</body>
+</html>
