@@ -1,4 +1,5 @@
-function registrar() {
+ alert("JS carregou!");
+ function registrar() {
 
    let nome = document.getElementById("nome").value;
    let pressao = document.getElementById("pressao").value;
