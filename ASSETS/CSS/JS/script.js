@@ -1,6 +1,6 @@
- alert("JS carregou!");
+ 
  function registrar() {
-   alert("clicou no botão");
+   
 
    let nome = document.getElementById("nome").value;
    let pressao = document.getElementById("pressao").value;
@@ -13,7 +13,10 @@
   pressao.trim() === "" ||
   batimentos.trim() === "" ||
   respiracao.trim() === ""
-)
+
+) { alert("Preencha tudo!");
+  return;
+}
 
   let agora = new Date();
   let dataHora = agora.toLocaleString();
@@ -67,10 +70,10 @@ function adicionarNaTabela(id, dataHora, nome, pressao, batimentos, respiracao) 
   linha.classList.add(classe);
 
   linha.insertCell(0).innerText = dataHora;
-  linha.insertCell(1).innerText = seguro (nome, "Sem nome");
-  linha.insertCell(2).innerText = seguro (pressao);
-  linha.insertCell(3).innerText = seguro (batimentos);
-  linha.insertCell(4).innerText = seguro (respiracao);
+  linha.insertCell(1).innerText = seguro(nome, "Sem nome");
+  linha.insertCell(2).innerText = seguro(pressao);
+  linha.insertCell(3).innerText = seguro(batimentos);
+  linha.insertCell(4).innerText = seguro(respiracao);
 
   let cellAcao = linha.insertCell(5);
   let btn = document.createElement("button");
@@ -131,5 +134,12 @@ function filtrar() {
     linha.style.display = texto.includes(filtro) ? "" : "none";
   });
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const botao = document.getElementById("btnSalvar");
+
+  botao.addEventListener("click", function () {
+    registrar();
+  });
+});
 
 carregar();
