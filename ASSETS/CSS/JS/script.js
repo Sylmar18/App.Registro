@@ -1,5 +1,6 @@
  alert("JS carregou!");
  function registrar() {
+   alert("clicou no botão");
 
    let nome = document.getElementById("nome").value;
    let pressao = document.getElementById("pressao").value;
