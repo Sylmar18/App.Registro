@@ -64,3 +64,54 @@ th {
 .btn-excluir:hover{
    background: #c9c8c8;
 }
+
+@media (max-width: 768px){
+  body {
+    padding: 10px;
+  }
+  input {
+    width: 90%;
+   }
+   table {
+    width: 100%;
+    border: none;
+   }
+   thead {
+    display: none;
+   }
+   tr {
+    display: block;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+   }
+   td {
+     display: flex;
+     justify-content: space-between;
+     padding: 8px;
+     border: none;
+     border-bottom: 1px solid #eee;
+   }
+   td :last-child{
+    border-bottom: none;
+   }
+   td::before {
+    font-weight: bold;
+    color: #5a189a;
+   }
+
+     td:nth-child(1)::before { content: "Data"; }
+  td:nth-child(2)::before { content: "Nome"; }
+  td:nth-child(3)::before { content: "Pressão"; }
+  td:nth-child(4)::before { content: "BPM"; }
+  td:nth-child(5)::before { content: "Respiração"; }
+  td:nth-child(6)::before { content: "Ação"; }
+
+  .btn-excluir {
+    width: 100%;
+    margin-top: 5px;
+  }
+}
+

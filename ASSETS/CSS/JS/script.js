@@ -1,22 +1,29 @@
 function registrar() {
-  let pressao = document.getElementById("pressao").value;
-  let batimentos = document.getElementById("batimentos").value;
+
+   let nome = document.getElementById("nome").value;
+   let pressao = document.getElementById("pressao").value;
+   let batimentos = document.getElementById("batimentos").value;
+   let respiracao = document.getElementById("respiracao").value;
   
 
-  if (pressao === "" || batimentos === "") {
-    alert("Preencha tudo!");
-    return;
-  }
+ if (
+  nome.trim() === "" ||
+  pressao.trim() === "" ||
+  batimentos.trim() === "" ||
+  respiracao.trim() === ""
+)
 
   let agora = new Date();
   let dataHora = agora.toLocaleString();
   let id = Date.now();
 
-  adicionarNaTabela(id,dataHora, pressao, batimentos);
-  salvar(id,dataHora, pressao, batimentos);
+  adicionarNaTabela(id,dataHora,nome, pressao, batimentos,respiracao);
+  salvar(id,dataHora,nome, pressao, batimentos, respiracao);
 
+  document.getElementById("nome").value = "";
   document.getElementById("pressao").value = "";
   document.getElementById("batimentos").value = "";
+  document.getElementById("respiracao").value = "";
 }
 
 function classificarPressao(pressao) {
@@ -27,58 +34,91 @@ function classificarPressao(pressao) {
 
   if (isNaN(sistolica)) return "normal";
 
-  if (sistolica >= 140) {
+  if (sistolica >= 14) {
     return "alta";
-  } else if (sistolica <= 90) {
+  } else if (sistolica <= 9) {
     return "baixa";
   } else {
     return "normal";
   }
 }
 
+function excluirRegistro(id, linha) {
+  
+  linha.remove();
+  let dados = JSON.parse(localStorage.getItem("registros")) || [];
+  let novos = dados.filter(d => String(d.id) !== String(id));
+  localStorage.setItem("registros", JSON.stringify(novos));
+}
 
-function adicionarNaTabela(id,dataHora, pressao, batimentos) {
+function seguro( valor, padrao ="N/A"){
+  return valor ? valor: padrao;
+}
+
+function adicionarNaTabela(id, dataHora, nome, pressao, batimentos, respiracao) {
   let tabela = document.getElementById("tabela");
   let linha = tabela.insertRow();
 
-  linha.setAttribute("data-id", id)
+  linha.setAttribute("data-id", id);
 
   let classe = classificarPressao(pressao);
   linha.classList.add(classe);
 
   linha.insertCell(0).innerText = dataHora;
-  linha.insertCell(1).innerText = pressao;
-  linha.insertCell(2).innerText = batimentos;
+  linha.insertCell(1).innerText = seguro (nome, "Sem nome");
+  linha.insertCell(2).innerText = seguro (pressao);
+  linha.insertCell(3).innerText = seguro (batimentos);
+  linha.insertCell(4).innerText = seguro (respiracao);
 
-  let cellAcao = linha.insertCell(3);
+  let cellAcao = linha.insertCell(5);
   let btn = document.createElement("button");
-  btn.innerText = "🚮"
+  btn.innerText = "🗑️";
   btn.classList.add("btn-excluir");
 
-  btn.onclick = function() {
-    excluirRegistro(id, linha)
+btn.onclick = function() {
+  console.log("clicou", id);
+  excluirRegistro(id, linha);
+ 
   };
+
   cellAcao.appendChild(btn);
 }
 
 
-function salvar(dataHora, pressao, batimentos) {
-  let dados = JSON.parse(localStorage.getItem("registros")) || [];
-  dados.push({ dataHora, pressao, batimentos });
-  localStorage.setItem("registros", JSON.stringify(dados));
-}
-function excluirRegistro(id, linha) {
-  linha.remove();
 
+function salvar(id, dataHora, nome, pressao, batimentos, respiracao) {
   let dados = JSON.parse(localStorage.getItem("registros")) || [];
-  let novos = dados.filter(d => d.id !== id);
-  localStorage.setItem("registros", JSON.stringify(novos));
-}
+
+dados.push({
+  id,
+  dataHora,
+  nome: nome || "Sem nome",
+  pressao: pressao || "N/A",
+  batimentos: batimentos || "N/A",
+  respiracao: respiracao || "N/A"
+});
+
+  localStorage.setItem("registros", JSON.stringify(dados));
+} 
 
 function carregar() {
   let dados = JSON.parse(localStorage.getItem("registros")) || [];
-  dados.forEach(d => adicionarNaTabela(d.dataHora, d.pressao, d.batimentos));
+
+  dados.forEach(d => {
+    let idSeguro = d.id || Date.now() + Math.random();
+
+    adicionarNaTabela(
+      idSeguro,
+      d.dataHora || "Sem data",
+      d.nome || "Sem nome",
+      d.pressao || "N/A",
+      d.batimentos || "N/A",
+      d.respiracao || "N/A"
+
+    );
+  });
 }
+
 
 function filtrar() {
   let filtro = document.getElementById("filtro").value.toLowerCase();

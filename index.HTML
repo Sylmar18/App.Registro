@@ -8,10 +8,13 @@
 </head>
     
 <body>
-   <h2>Medida de Pressão e Batimentos</h2>
+   <h2>Medida de Pressão, Batimentos e Respiração</h2>
+    <h3>Resgistre sua saúde, cuide-se bem❤️😊</h3>
 
-  <input type="text" id="pressao" placeholder="Pressão 120/80"><br>
+   <input type="text" id="nome" placeholder="Nome da pessoa"><br>
+  <input type="text" id="pressao" placeholder="Pressão 12/8"><br>
   <input type="number" id="batimentos" placeholder="Batimentos (bpm)"><br>
+  <input type="number" id="respiracao" placeholder="Respiração (rpm)"><br>
 
   <button onclick="registrar()">Salvar</button>
 
@@ -24,8 +27,10 @@
     <thead>
       <tr>
         <th>Data e Hora</th>
+        <th>Nome</th> 
         <th>Pressão</th>
         <th>BPM</th>
+        <th>Respiração</th>
         <th>Ações</th>
       </tr>
     </thead>
