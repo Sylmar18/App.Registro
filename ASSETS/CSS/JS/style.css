@@ -110,8 +110,10 @@ th {
   td:nth-child(6)::before { content: "Ação"; }
 
   .btn-excluir {
-    width: 100%;
-    margin-top: 5px;
+    width: auto;
+    margin-top: 4px 8px;
+    padding: 14px;
+    margin: 5px;
   }
 }
 

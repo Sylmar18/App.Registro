@@ -137,9 +137,11 @@ function filtrar() {
 document.addEventListener("DOMContentLoaded", function () {
   const botao = document.getElementById("btnSalvar");
 
+  if (botao){
   botao.addEventListener("click", function () {
     registrar();
   });
-});
+}
 
 carregar();
+});
