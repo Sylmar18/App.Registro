@@ -110,7 +110,7 @@ function carregar() {
   let dados = JSON.parse(localStorage.getItem("registros")) || [];
 
   dados.forEach(d => {
-    let idSeguro = d.id || Date.now() + Math.random();
+   
 
     adicionarNaTabela(
       idSeguro,
