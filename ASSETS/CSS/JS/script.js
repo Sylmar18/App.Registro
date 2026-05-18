@@ -49,11 +49,14 @@ function classificarPressao(pressao) {
 }
 
 function excluirRegistro(id, linha) {
-  
-  linha.remove();
+
   let dados = JSON.parse(localStorage.getItem("registros")) || [];
-  let novos = dados.filter(d => String(d.id) !== String(id));
+
+  let novos = dados.filter(d => Number(d.id) !== Number(id));
+
   localStorage.setItem("registros", JSON.stringify(novos));
+
+  linha.remove();
 }
 
 function seguro( valor, padrao ="N/A"){
@@ -107,20 +110,23 @@ dados.push({
 } 
 
 function carregar() {
+
+  let tabela = document.getElementById("tabela");
+  tabela.innerHTML = "";
+
   let dados = JSON.parse(localStorage.getItem("registros")) || [];
 
   dados.forEach(d => {
-   
 
     adicionarNaTabela(
-      idSeguro,
+      d.id,
       d.dataHora || "Sem data",
       d.nome || "Sem nome",
       d.pressao || "N/A",
       d.batimentos || "N/A",
       d.respiracao || "N/A"
-
     );
+
   });
 }
 
