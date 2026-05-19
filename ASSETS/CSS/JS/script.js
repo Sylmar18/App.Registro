@@ -32,7 +32,10 @@
 }
 
 function classificarPressao(pressao) {
-  if (!pressao.includes("/")) return "normal";
+
+  if (!pressao || !pressao.includes("/")) {
+    return "normal";
+  }
 
   let partes = pressao.split("/");
   let sistolica = parseInt(partes[0]);
@@ -59,9 +62,12 @@ function excluirRegistro(id, linha) {
   linha.remove();
 }
 
-function seguro( valor, padrao ="N/A"){
-  return valor ? valor: padrao;
+function seguro(valor, padrao = "N/A") {
+  return valor !== undefined && valor !== null && valor !== ""
+    ? valor
+    : padrao;
 }
+
 
 function adicionarNaTabela(id, dataHora, nome, pressao, batimentos, respiracao) {
   let tabela = document.getElementById("tabela");
@@ -95,7 +101,16 @@ btn.onclick = function() {
 
 
 function salvar(id, dataHora, nome, pressao, batimentos, respiracao) {
-  let dados = JSON.parse(localStorage.getItem("registros")) || [];
+  
+  let dados = [];
+
+  try {
+    dados = JSON.parse(localStorage.getItem("registros")) || [];
+  } catch (erro) {
+    console.log("Erro ao salvar");
+    dados = [];
+  }
+
 
 dados.push({
   id,
@@ -114,7 +129,16 @@ function carregar() {
   let tabela = document.getElementById("tabela");
   tabela.innerHTML = "";
 
-  let dados = JSON.parse(localStorage.getItem("registros")) || [];
+    let dados = [];
+
+    try {
+    dados = JSON.parse(localStorage.getItem("registros")) || [];
+  } catch (erro) {
+
+    console.log("Erro no localStorage");
+    localStorage.removeItem("registros");
+    dados = [];
+  }
 
   dados.forEach(d => {
 
